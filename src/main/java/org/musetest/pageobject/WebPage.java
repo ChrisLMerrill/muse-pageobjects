@@ -1,10 +1,11 @@
 package org.musetest.pageobject;
 
 import org.musetest.core.*;
-import org.musetest.core.resource.*;
+import org.musetest.core.resource.generic.*;
 import org.musetest.core.resource.types.*;
 import org.musetest.core.util.*;
 import org.musetest.core.values.*;
+import org.musetest.core.values.descriptor.*;
 import org.musetest.core.values.events.*;
 
 import java.util.*;
@@ -13,7 +14,8 @@ import java.util.*;
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
 @MuseTypeId("page")
-public class WebPage extends BaseMuseResource
+@MuseSubsourceDescriptor(displayName = "Page URL", description = "The URL for directly accessing the page", type = SubsourceDescriptor.Type.Named, name = "url", optional = true)
+public class WebPage extends GenericResourceConfiguration
     {
     @SuppressWarnings("unused,WeakerAccess")  // required for Json de/serialization
     public Map<String, PageElement> getElements()
