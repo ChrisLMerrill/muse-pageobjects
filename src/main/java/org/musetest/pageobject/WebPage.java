@@ -14,7 +14,7 @@ import java.util.*;
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
 @MuseTypeId("page")
-@MuseSubsourceDescriptor(displayName = "Page URL", description = "The URL for directly accessing the page", type = SubsourceDescriptor.Type.Named, name = "url", optional = true)
+@MuseSubsourceDescriptor(displayName = "Page URL", description = "The URL for directly accessing the page", type = SubsourceDescriptor.Type.Named, name = WebPage.URL_PARAM, optional = true)
 public class WebPage extends GenericResourceConfiguration
     {
     @SuppressWarnings("unused,WeakerAccess")  // required for Json de/serialization
@@ -49,6 +49,8 @@ public class WebPage extends GenericResourceConfiguration
         }
 
     private Map<String, PageElement> _elements = new HashMap<>();
+
+    public final static String URL_PARAM = "url";
 
     /**
      * Provides a facade for the element locator sources in the page. This facade makes the element/locator
@@ -151,5 +153,11 @@ public class WebPage extends GenericResourceConfiguration
             {
             super(WebPage.class.getAnnotation(MuseTypeId.class).value(), "Web Page", WebPage.class);
             }
+
+        @Override
+        public ResourceDescriptor getDescriptor()
+	        {
+	        return new DefaultResourceDescriptor(this, "Represents a page loaded in the browser.");
+	        }
         }
     }

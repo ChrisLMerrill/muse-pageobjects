@@ -15,3 +15,28 @@ dependencies {
 
     testImplementation 'junit:junit:4+'
 }
+
+// jar the sources
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+// jar the javadocs
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// produce the sources and javadoc artifacts
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// declare which packages Muse should scan for extensions
+jar {
+    manifest {
+        attributes 'muse-package': 'org.musetest.pageobject,org.musetest.pageobject.steps'
+    }
+}
