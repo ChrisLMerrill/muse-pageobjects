@@ -22,6 +22,7 @@ import org.musetest.selenium.steps.*;
 @MuseStepShortDescription("Start at a page by navigating to its URL")
 @MuseStepLongDescription("Resolve the Page source to a string and find that page in the project. Lookup the page's URL parameter, resolve it and then go to that URL in the browser.")
 @MuseSubsourceDescriptor(displayName = "Page", description = "Page to navigate to", type = SubsourceDescriptor.Type.Named, name = StartAtPageStep.PAGE_PARAM)
+@MuseStepDescriptorImplementation(StartAtPageDescriptor.class)
 public class StartAtPageStep extends BrowserStep
 	{
 	public StartAtPageStep(StepConfiguration configuration, MuseProject project) throws MuseInstantiationException

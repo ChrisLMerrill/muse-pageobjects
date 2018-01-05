@@ -87,10 +87,17 @@ public class StartAtPageStepTests
 		Assert.assertEquals("browser didn't navigate", URL, driver.getCurrentUrl());
 		}
 
+	@Test
+	public void descriptorShortDescription()
+	    {
+	    Assert.assertTrue(_project.getStepDescriptors().get(_step_config).getShortDescription(_step_config).contains(PAGE_NAME));
+	    }
+
 	@Before
 	public void setup() throws IOException
 		{
 		_page.setId(PAGE_ID);
+		_page.metadata().setMetadataField(WebPage.PAGE_NAME_META, PAGE_NAME);
 		_project.getResourceStorage().addResource(_page);
 
 		_step_config.setType(StartAtPageStep.TYPE_ID);
@@ -102,6 +109,7 @@ public class StartAtPageStepTests
 	private final WebPage _page = new WebPage();
 
 	private final static String PAGE_ID = "page1";
+	private final static String PAGE_NAME = "Page #1";
 	private final static String URL = "http://a.nice.url/";
 	}
 
