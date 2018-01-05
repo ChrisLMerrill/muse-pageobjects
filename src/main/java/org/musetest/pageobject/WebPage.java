@@ -52,6 +52,9 @@ public class WebPage extends GenericResourceConfiguration
 
     public final static String URL_PARAM = "url";
 
+    @SuppressWarnings("unused")  // referenced in UI
+    public final static String PAGE_NAME_META = "_pagename";
+
     /**
      * Provides a facade for the element locator sources in the page. This facade makes the element/locator
      * pairs editable with a ValueSourceMapEditor.
