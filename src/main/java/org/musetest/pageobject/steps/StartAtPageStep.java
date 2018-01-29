@@ -16,7 +16,6 @@ import org.musetest.selenium.steps.*;
  */
 @MuseTypeId("start-at-page")
 @MuseStepName("Start at page")
-@MuseInlineEditString("Start at page {pageid}")
 @MuseStepIcon("glyph:FontAwesome:FILE_TEXT_ALT")
 @MuseStepTypeGroup("Page Objects")
 @MuseStepShortDescription("Start at a page by navigating to its URL")

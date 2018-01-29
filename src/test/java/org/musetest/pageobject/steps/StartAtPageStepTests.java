@@ -90,6 +90,7 @@ public class StartAtPageStepTests
 	@Test
 	public void descriptorShortDescription()
 	    {
+	    Assert.assertTrue(new StartAtPageDescriptor(_project).getShortDescription(_step_config).contains(PAGE_NAME));
 	    Assert.assertTrue(_project.getStepDescriptors().get(_step_config).getShortDescription(_step_config).contains(PAGE_NAME));
 	    }
 

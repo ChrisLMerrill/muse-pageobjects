@@ -1,6 +1,7 @@
 package org.musetest.pageobject.steps;
 
 import org.musetest.core.*;
+import org.musetest.core.context.*;
 import org.musetest.core.resource.*;
 import org.musetest.core.step.*;
 import org.musetest.core.step.descriptor.*;
@@ -12,6 +13,7 @@ import org.musetest.pageobject.*;
  */
 public class StartAtPageDescriptor extends AnnotatedStepDescriptor
 	{
+	@SuppressWarnings("WeakerAccess")  // instantiated by reflection
 	public StartAtPageDescriptor(MuseProject project)
 		{
 		super(StartAtPageStep.class, project);
@@ -20,23 +22,29 @@ public class StartAtPageDescriptor extends AnnotatedStepDescriptor
 	@Override
 	public String getShortDescription(StepConfiguration step)
 		{
-		ValueSourceConfiguration source = step.getSource(StartAtPageStep.PAGE_PARAM);
-		if (source != null && source.getValue() != null)
+		String name = "?";
+		try
 			{
-			final ResourceToken token = getProject().getResourceStorage().findResource(source.getValue().toString());
+			final MuseValueSource source = BaseValueSource.getValueSource(step, StartAtPageStep.PAGE_PARAM, true, _project);
+			String page_id = BaseValueSource.getValue(source, new BaseExecutionContext(_project), false, String.class);
+			final ResourceToken token = getProject().getResourceStorage().findResource(page_id);
+			name = page_id;
 			if (token != null)
 				{
 				MuseResource resource = token.getResource();
 				if (resource instanceof WebPage)
 					{
 					WebPage page = (WebPage) resource;
-					Object name = page.metadata().getMetadataField(WebPage.PAGE_NAME_META);
-					if (name != null)
-						return "Start at Page: " + name.toString();
+					name = page.metadata().getMetadataField(WebPage.PAGE_NAME_META).toString();
 					}
 				}
 			}
-		return super.getShortDescription(step);
+		catch (Exception e)
+			{
+			// continue
+			}
+
+		return "Start at Page: " + name;
 		}
 	}
 
