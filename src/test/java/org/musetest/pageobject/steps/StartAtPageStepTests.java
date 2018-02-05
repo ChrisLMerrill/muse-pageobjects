@@ -1,11 +1,14 @@
 package org.musetest.pageobject.steps;
 
 import org.junit.*;
+import org.musetest.builtins.step.*;
 import org.musetest.core.*;
+import org.musetest.core.context.*;
 import org.musetest.core.mocks.*;
 import org.musetest.core.project.*;
 import org.musetest.core.resource.*;
 import org.musetest.core.step.*;
+import org.musetest.core.steptest.*;
 import org.musetest.core.values.*;
 import org.musetest.core.variables.*;
 import org.musetest.pageobject.*;
@@ -78,11 +81,12 @@ public class StartAtPageStepTests
 		{
 		_page.parameters().addSource(WebPage.URL_PARAM, ValueSourceConfiguration.forValue(URL));
 		MuseMockDriver driver = new MuseMockDriver();
-		MockStepExecutionContext context = new MockStepExecutionContext();
-		BrowserStepExecutionContext.putDriver(driver, context);
+		DefaultSteppedTestExecutionContext test_context = new DefaultSteppedTestExecutionContext(_project, new SteppedTest(_step_config));
+		StepExecutionContext step_context = new SingleStepExecutionContext(test_context, _step_config, false);
+		BrowserStepExecutionContext.putDriver(driver, step_context);
 
 		MuseStep step = _step_config.createStep(_project);
-		step.execute(context);
+		step.execute(step_context);
 
 		Assert.assertEquals("browser didn't navigate", URL, driver.getCurrentUrl());
 		}
@@ -103,6 +107,7 @@ public class StartAtPageStepTests
 
 		_step_config.setType(StartAtPageStep.TYPE_ID);
 		_step_config.addSource(StartAtPageStep.PAGE_PARAM, ValueSourceConfiguration.forValue(PAGE_ID));
+		_step_config.addChild(new StepConfiguration(LogMessage.TYPE_ID));
 		}
 
 	private final MuseProject _project = new SimpleProject();
