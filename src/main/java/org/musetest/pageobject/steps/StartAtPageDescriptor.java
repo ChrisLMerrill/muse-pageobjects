@@ -20,7 +20,7 @@ public class StartAtPageDescriptor extends AnnotatedStepDescriptor
 	@Override
 	public String getShortDescription(StepConfiguration step)
 		{
-		String name = lookupPageName(getProject(), step, StartAtPageStep.PAGE_PARAM);
+		String name = lookupPageId(getProject(), step, StartAtPageStep.PAGE_PARAM);
 		return "Start at Page: " + name;
 		}
 	}
