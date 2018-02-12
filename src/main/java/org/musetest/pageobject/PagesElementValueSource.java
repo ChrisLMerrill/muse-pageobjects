@@ -33,19 +33,28 @@ public class PagesElementValueSource extends BaseSeleniumValueSource
     public Object resolveValue(MuseExecutionContext context) throws ValueSourceResolutionError
         {
         MuseProject project = context.getProject();
+
+        // get the page-id
         Object value = _page_source.resolveValue(context);
         if (!(value instanceof String))
             throw new ValueSourceResolutionError(String.format("The 'page' parameter must resolve to a String. Instead, it was %s (a %s)", value, value.getClass().getSimpleName()));
         String page_id = (String) value;
 
+        // find the WebPage
+        WebPage page = context.getProject().getResourceStorage().getResource(page_id, WebPage.class);
+        if (page == null)
+	        throw new ValueSourceResolutionError(String.format("Page '%s' not found in the project", page_id));
+
+        // get the element-id
         value = _element_source.resolveValue(context);
         if (!(value instanceof String))
             throw new ValueSourceResolutionError(String.format("The 'element' parameter must resolve to a String. Instead, it was %s (a %s)", value, value.getClass().getSimpleName()));
         String element_id = (String) value;
 
-        PageElement element = new PageElementLocator(project).find(page_id, element_id);
+        // find the PageElement
+        PageElement element = page.getElements().get(element_id);
         if (element == null)
-            throw new ValueSourceResolutionError(String.format("Element not found in the project...unable to lookup locator by page.element key '%s.%s'", page_id, element_id));
+	        throw new ValueSourceResolutionError(String.format("Element '%s' not found on page '%s'", element_id, page_id));
 
         ValueSourceConfiguration element_locator_config = element.getLocator();
         if (element_locator_config == null)

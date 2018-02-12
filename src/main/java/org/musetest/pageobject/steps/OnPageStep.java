@@ -15,7 +15,7 @@ import org.musetest.core.values.descriptor.*;
 @MuseStepIcon("glyph:FontAwesome:FILE_TEXT_ALT")
 @MuseStepTypeGroup("Page Objects")
 @MuseInlineEditString("On page: {pageid}")
-@MuseStepShortDescription("Perform actions on a page")
+@MuseStepShortDescription("Perform child steps within the context of a page")
 @MuseStepLongDescription("Resolve the Page source to a string and find that page in the project. Child steps operate on the page.")
 @MuseSubsourceDescriptor(displayName = "Page", description = "Page to navigate to", type = SubsourceDescriptor.Type.Named, name = OnPageStep.PAGE_PARAM)
 @MuseStepDescriptorImplementation(OnPageDescriptor.class)
@@ -26,7 +26,6 @@ public class OnPageStep extends BasicCompoundStep
 		{
 		super(configuration, project);
 		_page = getValueSource(configuration, PAGE_PARAM, true, project);
-		_project = project;
 		}
 
 	@Override
@@ -48,7 +47,6 @@ public class OnPageStep extends BasicCompoundStep
 		}
 
 	private final MuseValueSource _page;
-	private final MuseProject _project;
 
 	public final static String PAGE_PARAM = "pageid";
 	public final static String TYPE_ID = OnPageStep.class.getAnnotation(MuseTypeId.class).value();

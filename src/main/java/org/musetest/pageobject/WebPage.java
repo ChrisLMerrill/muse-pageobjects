@@ -42,6 +42,25 @@ public class WebPage extends GenericResourceConfiguration
         return new NamedElementLocators();
         }
 
+    @SuppressWarnings("unused,WeakerAccess")  // required for Json de/serialization
+    public Map<String, PageAction> getActions()
+        {
+        return Collections.unmodifiableMap(_actions);
+        }
+
+    @SuppressWarnings("unused")  // required for Json de/serialization
+    public void setActions(Map<String, PageAction> actions)
+        {
+        _actions = actions;
+        }
+
+    public void addAction(String id, PageAction action)
+        {
+        if (_actions == null)
+	        _actions = new HashMap<>();
+        _actions.put(id, action);
+        }
+
     @Override
     public ResourceType getType()
         {
@@ -49,6 +68,7 @@ public class WebPage extends GenericResourceConfiguration
         }
 
     private Map<String, PageElement> _elements = new HashMap<>();
+    private Map<String, PageAction> _actions = new HashMap<>();
 
     public final static String URL_PARAM = "url";
 
