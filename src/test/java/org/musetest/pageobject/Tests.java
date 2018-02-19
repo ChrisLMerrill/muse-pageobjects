@@ -54,7 +54,7 @@ public class Tests
 		}
 
 	@Test
-	public void pageElementExpressionSupportWithTwoArguments() throws IOException
+	public void pageElementExpressionSupportWithTwoArguments()
 		{
 		PagesElementValueSource.StringExpressionSupport supporter = new PagesElementValueSource.StringExpressionSupport();
 		List<ValueSourceConfiguration> configs = new ArrayList<>();
@@ -68,7 +68,7 @@ public class Tests
 		}
 
 	@Test
-	public void pageElementExpressionSupportWithTwoNonStringArguments() throws IOException
+	public void pageElementExpressionSupportWithTwoNonStringArguments()
 		{
 		PagesElementValueSource.StringExpressionSupport supporter = new PagesElementValueSource.StringExpressionSupport();
 		List<ValueSourceConfiguration> configs = new ArrayList<>();

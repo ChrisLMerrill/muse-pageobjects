@@ -2,9 +2,12 @@ package org.musetest.pageobject;
 
 import com.fasterxml.jackson.databind.*;
 import org.junit.*;
+import org.musetest.core.util.*;
 import org.musetest.core.values.*;
+import org.musetest.pageobject.events.*;
 
 import java.io.*;
+import java.util.concurrent.atomic.*;
 import java.util.regex.*;
 
 /**
@@ -82,6 +85,25 @@ public class PageActionTests
 	    action2.exposedParameters().clear();
 	    action2.exposedParameters().add("e1");
 	    Assert.assertEquals(action1, action2);
+	    }
+
+	@Test
+	public void functionChangeEvent()
+	    {
+	    PageAction action = new PageAction();
+	    AtomicReference<ChangeEvent> event_holder = new AtomicReference<>();
+	    action.addChangeListener(event_holder::set);
+
+	    action.setFunction("f1");
+	    FunctionChangedEvent event = (FunctionChangedEvent) event_holder.get();
+	    Assert.assertTrue(action == event.getTarget());
+	    Assert.assertEquals(null, event.getOldFunctionId());
+	    Assert.assertEquals("f1", event.getNewFunctionId());
+
+	    action.setFunction("f2");
+	    event = (FunctionChangedEvent) event_holder.get();
+	    Assert.assertEquals("f1", event.getOldFunctionId());
+	    Assert.assertEquals("f2", event.getNewFunctionId());
 	    }
 
 	// get/set from WebPage --> in WebPage tests

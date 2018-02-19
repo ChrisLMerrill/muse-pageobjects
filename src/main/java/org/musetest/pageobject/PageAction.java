@@ -1,6 +1,8 @@
 package org.musetest.pageobject;
 
+import org.musetest.core.util.*;
 import org.musetest.core.values.*;
+import org.musetest.pageobject.events.*;
 
 import java.util.*;
 
@@ -16,7 +18,9 @@ public class PageAction
 
 	public void setFunction(String function_id)
 		{
+		String old_function_id = _function_id;
 		_function_id = function_id;
+		notifyListeners(new FunctionChangedEvent(this, old_function_id, function_id));
 		}
 
 	public String getDestinationPage()
@@ -59,6 +63,22 @@ public class PageAction
 		_exposed_params = exposed_parameters;
 		}
 
+	public void addChangeListener(ChangeEventListener listener)
+		{
+		_listeners.add(listener);
+		}
+
+	public void removeChangeListener(ChangeEventListener listener)
+		{
+		_listeners.remove(listener);
+		}
+
+	private void notifyListeners(ChangeEvent event)
+		{
+		for (ChangeEventListener listener : _listeners)
+			listener.changeEventRaised(event);
+		}
+
 	@Override
 	public boolean equals(Object obj)
 		{
@@ -75,4 +95,6 @@ public class PageAction
 	private String _destination_page_id;
 	private NamedSourcesContainer _param_defaults = new NamedSourcesContainer();
 	private Set<String> _exposed_params = new HashSet<>();
+
+	private Set<ChangeEventListener> _listeners = new HashSet<>();
 	}

@@ -42,24 +42,40 @@ public class WebPage extends GenericResourceConfiguration
         return new NamedElementLocators();
         }
 
+    public PageActions actions()
+	    {
+	    return _actions;
+	    }
+
     @SuppressWarnings("unused,WeakerAccess")  // required for Json de/serialization
     public Map<String, PageAction> getActions()
         {
-        return Collections.unmodifiableMap(_actions);
+        return Collections.unmodifiableMap(_actions.getMap());
         }
 
     @SuppressWarnings("unused")  // required for Json de/serialization
     public void setActions(Map<String, PageAction> actions)
         {
-        _actions = actions;
+        _actions.setMap(actions);
         }
 
-    public void addAction(String id, PageAction action)
-        {
-        if (_actions == null)
-	        _actions = new HashMap<>();
-        _actions.put(id, action);
-        }
+    @SuppressWarnings("unused")  // used in UI
+    public void addChangeListener(ChangeEventListener listener)
+	    {
+	    _listeners.add(listener);
+	    }
+
+    @SuppressWarnings("unused")  // used in UI
+    public void removeChangeListener(ChangeEventListener listener)
+	    {
+	    _listeners.remove(listener);
+	    }
+
+    private void notifyListeners(ChangeEvent event)
+	    {
+	    for (ChangeEventListener listener : _listeners)
+	    	listener.changeEventRaised(event);
+	    }
 
     @Override
     public ResourceType getType()
@@ -68,13 +84,16 @@ public class WebPage extends GenericResourceConfiguration
         }
 
     private Map<String, PageElement> _elements = new HashMap<>();
-    private Map<String, PageAction> _actions = new HashMap<>();
+    private PageActions _actions = new PageActions(this, this::notifyListeners);
+
+    private transient Set<ChangeEventListener> _listeners = new HashSet<>();
 
     public final static String URL_PARAM = "url";
 
     /**
      * Provides a facade for the element locator sources in the page. This facade makes the element/locator
      * pairs editable with a ValueSourceMapEditor.
+     * // TODO replace this with NamedSourcesContainer
      */
     private class NamedElementLocators implements ContainsNamedSources
         {

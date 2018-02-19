@@ -46,7 +46,7 @@ public class PerformActionStepTests
 		// configure action on page to call function
 		PageAction action = new PageAction();
 		action.setFunction("function1");
-		page.addAction("action1", action);
+		page.actions().addAction("action1", action);
 		action.defaultParameters().addSource("default_param", ValueSourceConfiguration.forValue("default-param-value"));
 
 	    // create a test with a PerformAction step that calls the function
