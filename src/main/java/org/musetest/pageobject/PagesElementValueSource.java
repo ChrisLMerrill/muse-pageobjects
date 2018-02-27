@@ -107,8 +107,8 @@ public class PagesElementValueSource extends BaseSeleniumValueSource
             }
 
         @Override
-        public String toString(ValueSourceConfiguration config, MuseProject project, int depth)
-            {
+        public String toString(ValueSourceConfiguration config, StringExpressionContext context, int depth)
+	        {
             if (config.getType().equals(PagesElementValueSource.TYPE_ID))
                 {
                 PagesElementValueSource.upgrade(config);
@@ -121,14 +121,14 @@ public class PagesElementValueSource extends BaseSeleniumValueSource
                 if (page_source.getType().equals(StringValueSource.TYPE_ID))
                     page = page_source.getValue().toString();
                 else
-                    page = project.getValueSourceStringExpressionSupporters().toString(page_source, depth + 1);
+                    page = context.getProject().getValueSourceStringExpressionSupporters().toString(page_source, context, depth + 1);
 
                 String element;
                 ValueSourceConfiguration element_source = config.getSource(PagesElementValueSource.ELEMENT_PARAM_ID);
                 if (element_source.getType().equals(StringValueSource.TYPE_ID))
                     element = element_source.getValue().toString();
                 else
-                    element = project.getValueSourceStringExpressionSupporters().toString(element_source, depth + 1);
+                    element = context.getProject().getValueSourceStringExpressionSupporters().toString(element_source, context, depth + 1);
 
                 builder.append(String.format("<%s.%s>", page, element));
                 if (depth > 0)

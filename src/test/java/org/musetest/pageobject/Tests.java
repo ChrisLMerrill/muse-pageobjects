@@ -8,6 +8,7 @@ import org.musetest.core.mocks.*;
 import org.musetest.core.project.*;
 import org.musetest.core.step.*;
 import org.musetest.core.values.*;
+import org.musetest.core.values.strings.*;
 import org.musetest.selenium.*;
 import org.musetest.selenium.locators.*;
 import org.musetest.selenium.mocks.*;
@@ -64,7 +65,7 @@ public class Tests
 		Assert.assertEquals("the page param was not set", "page", config.getSource(PagesElementValueSource.PAGE_PARAM_ID).getValue());
 		Assert.assertEquals("the element param was not set", "element", config.getSource(PagesElementValueSource.ELEMENT_PARAM_ID).getValue());
 
-		Assert.assertEquals("not stringified correctly", String.format("<%s.%s>", "page", "element"), supporter.toString(config, PROJECT));
+		Assert.assertEquals("not stringified correctly", String.format("<%s.%s>", "page", "element"), supporter.toString(config, new RootStringExpressionContext(PROJECT)));
 		}
 
 	@Test
@@ -80,7 +81,7 @@ public class Tests
 		Assert.assertEquals("the page param was not set", page_source, config.getSource(PagesElementValueSource.PAGE_PARAM_ID).getSource());
 		Assert.assertEquals("the element param was not set", element_source, config.getSource(PagesElementValueSource.ELEMENT_PARAM_ID).getSource());
 
-		Assert.assertEquals("not stringified correctly", String.format("<$\"%s\".$\"%s\">", "page_var", "element_var"), supporter.toString(config, PROJECT));
+		Assert.assertEquals("not stringified correctly", String.format("<$\"%s\".$\"%s\">", "page_var", "element_var"), supporter.toString(config, new RootStringExpressionContext(PROJECT)));
 		}
 
 	private final static MuseProject PROJECT = new SimpleProject();

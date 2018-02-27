@@ -25,7 +25,7 @@ import java.util.*;
 @MuseSubsourceDescriptor(displayName = "Page", description = "Id of the page containing the action", type = SubsourceDescriptor.Type.Named, name = PerformActionStep.PAGE_PARAM)
 @MuseSubsourceDescriptor(displayName = "Action", description = "Id of the action", type = SubsourceDescriptor.Type.Named, name = PerformActionStep.ACTION_PARAM)
 @MuseSubsourceDescriptor(displayName = "Parameters", description = "Parameters to pass to the action", type = SubsourceDescriptor.Type.Map, optional = true)
-@MuseStepDescriptorImplementation(OnPageDescriptor.class)
+@MuseStepDescriptorImplementation(PerformActionDescriptor.class)
 public class PerformActionStep extends CallFunction
 	{
 	@SuppressWarnings("unused") // called via reflection
@@ -60,12 +60,13 @@ public class PerformActionStep extends CallFunction
 
 		// resolve the default parameters (sources) to be passed to the function BEFORE the new variable scope is created.
 		Map<String, ValueSourceConfiguration> sources = action.getDefaultParameters();
-		for (String name : sources.keySet())
-			{
-			if (name.equals(PAGE_PARAM) || name.equals(ACTION_PARAM))
-				continue;
-			resolveAndAddParameter(name, sources.get(name), context);
-			}
+		if (sources != null)
+			for (String name : sources.keySet())
+				{
+				if (name.equals(PAGE_PARAM) || name.equals(ACTION_PARAM))
+					continue;
+				resolveAndAddParameter(name, sources.get(name), context);
+				}
 		return true;
 		}
 
@@ -79,7 +80,6 @@ public class PerformActionStep extends CallFunction
 	private final MuseValueSource _page;
 	private final MuseValueSource _action;
 	private String _steps_id;
-	private boolean _steps_complete = false;
 
 	public final static String PAGE_PARAM = "pageid";
 	public final static String ACTION_PARAM = "actionid";
