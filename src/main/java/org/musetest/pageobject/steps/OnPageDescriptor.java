@@ -30,7 +30,7 @@ public class OnPageDescriptor extends AnnotatedStepDescriptor
 		try
 			{
 			final MuseValueSource source = BaseValueSource.getValueSource(step, page_param, true, project);
-			page_id = BaseValueSource.getValue(source, new BaseExecutionContext(project), false, String.class);
+			page_id = BaseValueSource.getValue(source, new ProjectExecutionContext(project), false, String.class);
 			}
 		catch (Exception e)
 			{
