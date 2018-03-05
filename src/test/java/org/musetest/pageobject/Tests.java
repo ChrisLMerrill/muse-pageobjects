@@ -33,7 +33,7 @@ public class Tests
 		final String element_id = "element#1";
 		element1.setLocator(ValueSourceConfiguration.forSource(IdElementValueSource.TYPE_ID, ValueSourceConfiguration.forValue(element_id)));
 		String page_element_id = "element1";
-		page1.addElement(page_element_id, element1);
+		page1.elements().addElement(page_element_id, element1);
 		project.getResourceStorage().addResource(page1);
 
 		MuseMockDriver driver = new MuseMockDriver();
