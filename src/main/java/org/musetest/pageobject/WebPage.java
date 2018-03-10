@@ -37,6 +37,11 @@ public class WebPage extends GenericResourceConfiguration
 	    return _actions;
 	    }
 
+    public PageConditions conditions()
+	    {
+	    return _conditions;
+	    }
+
     @SuppressWarnings("unused,WeakerAccess")  // required for Json de/serialization
     public Map<String, PageAction> getActions()
         {
@@ -75,6 +80,7 @@ public class WebPage extends GenericResourceConfiguration
 
     private PageElements _elements = new PageElements(this::notifyListeners);
     private PageActions _actions = new PageActions(this, this::notifyListeners);
+    private PageConditions _conditions = new PageConditions(this::notifyListeners);
 
     private transient Set<ChangeEventListener> _listeners = new HashSet<>();
 
