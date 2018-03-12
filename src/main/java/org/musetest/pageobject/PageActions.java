@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class PageActions
 	{
-	public PageActions(WebPage page, ChangeEventListener listener)
+	PageActions(WebPage page, ChangeEventListener listener)
 		{
 		_page = page;
 		_listener = listener;
@@ -40,14 +40,15 @@ public class PageActions
 		_listener.changeEventRaised(new PageActionAddedEvent(_page, action, id));
 		}
 
-	public void removeAction(String id)
+	public PageAction removeAction(String id)
 		{
-		if (_map != null)
-			{
-			final PageAction removed = _map.remove(id);
-			if (removed != null)
-				_listener.changeEventRaised(new PageActionRemovedEvent(_page, removed, id));
-			}
+		if (_map == null)
+			return null;
+
+		final PageAction removed = _map.remove(id);
+		if (removed != null)
+			_listener.changeEventRaised(new PageActionRemovedEvent(_page, removed, id));
+		return removed;
 		}
 
 	public boolean renameAction(String old_id, String new_id)

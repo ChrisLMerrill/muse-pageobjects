@@ -44,7 +44,8 @@ public class PageConditionsTests
 	    PageCondition condition = new PageCondition();
 	    _conditions.add("cid1", condition);
 
-	    _conditions.rename("cid1", "cid2");
+	    boolean renamed = _conditions.rename("cid1", "cid2");
+	    Assert.assertTrue(renamed);
 	    Assert.assertTrue(condition == _conditions.get("cid2"));
 	    Assert.assertEquals(1, _conditions.getMap().size());
 	    Assert.assertNull(_conditions.get("cid1"));

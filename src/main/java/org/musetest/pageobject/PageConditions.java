@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class PageConditions
 	{
-	public PageConditions(ChangeEventListener listener)
+	PageConditions(ChangeEventListener listener)
 		{
 		_listeners.addListener(listener);
 		}
@@ -41,7 +41,7 @@ public class PageConditions
 		_map.put(new_id, _map.remove(old_id));
 		listeners().raiseEvent(new PageConditionRenamedEvent(this, old_id, new_id));
 
-		return false;
+		return true;
 		}
 
 	public PageCondition get(String id)

@@ -54,6 +54,18 @@ public class WebPage extends GenericResourceConfiguration
         _actions.setMap(actions);
         }
 
+    @SuppressWarnings("unused,WeakerAccess")  // required for Json de/serialization
+    public Map<String, PageCondition> getConditions()
+        {
+        return Collections.unmodifiableMap(_conditions.getMap());
+        }
+
+    @SuppressWarnings("unused")  // required for Json de/serialization
+    public void setConditions(Map<String, PageCondition> conditions)
+        {
+        _conditions.setMap(conditions);
+        }
+
     @SuppressWarnings("unused")  // used in UI
     public void addChangeListener(ChangeEventListener listener)
 	    {

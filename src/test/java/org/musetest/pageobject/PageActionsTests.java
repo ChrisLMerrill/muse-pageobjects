@@ -23,7 +23,8 @@ public class PageActionsTests
 	    Assert.assertTrue(_page == add_event.getTarget());
 	    Assert.assertEquals(1, _actions.getMap().size());
 
-	    _actions.removeAction(action1_id);
+	    PageAction removed = _actions.removeAction(action1_id);
+	    Assert.assertTrue(action == removed);
 	    PageActionRemovedEvent remove_event = (PageActionRemovedEvent) _listener._event;
 	    Assert.assertEquals(action1_id, remove_event.getId());
 	    Assert.assertTrue(action == remove_event.getAction());

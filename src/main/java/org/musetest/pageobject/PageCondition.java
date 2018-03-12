@@ -19,5 +19,5 @@ public class PageCondition
         _condition = condition;
         }
 
-    private ValueSourceConfiguration _condition;
+    private ValueSourceConfiguration _condition = ValueSourceConfiguration.forValue(true);
     }
