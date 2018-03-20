@@ -1,12 +1,10 @@
 package org.musetest.pageobject;
 
-import org.musetest.core.*;
 import org.musetest.core.values.*;
 
 /**
  * @author Christopher L Merrill (see LICENSE.txt for license details)
  */
-@MuseTypeId("page-condition")
 public class PageCondition
     {
     public ValueSourceConfiguration getCondition()

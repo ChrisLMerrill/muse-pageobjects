@@ -5,7 +5,6 @@ import org.musetest.core.*;
 import org.musetest.core.resource.*;
 import org.musetest.core.values.*;
 import org.musetest.core.values.descriptor.*;
-import org.musetest.selenium.*;
 
 import java.util.*;
 
@@ -19,7 +18,7 @@ import java.util.*;
 @MuseStringExpressionSupportImplementation(PagesElementValueSource.StringExpressionSupport.class)
 @MuseSubsourceDescriptor(displayName = "Page id", description = "The id of the page (in the project) to lookup the element in", type = SubsourceDescriptor.Type.Named, name = PagesElementValueSource.PAGE_PARAM_ID)
 @MuseSubsourceDescriptor(displayName = "Element id", description = "The id of the element to lookup in the page", type = SubsourceDescriptor.Type.Named, name = PagesElementValueSource.ELEMENT_PARAM_ID)
-public class PagesElementValueSource extends BaseSeleniumValueSource
+public class PagesElementValueSource extends BaseValueSource
     {
     public PagesElementValueSource(ValueSourceConfiguration config, MuseProject project) throws MuseInstantiationException
         {
