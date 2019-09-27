@@ -22,7 +22,7 @@ import java.util.*;
 public class PerformActionStepTests
 	{
 	@Test
-	public void performAction() throws IOException, MuseExecutionError
+	public void performAction() throws IOException
 		{
 	    MuseProject project = new SimpleProject();
 
@@ -57,15 +57,13 @@ public class PerformActionStepTests
 		test_step.addSource("exposed-param", ValueSourceConfiguration.forValue("exposed-param-value"));
 		test.setStep(test_step);
 
-		TestExecutionContext context = new DefaultSteppedTestExecutionContext(project, test);
-		EventLogger logger = (EventLogger) new EventLoggerConfiguration.EventLoggerType().create().createPlugin();
-		context.addPlugin(logger);
-		context.initializePlugins();
-		Boolean ran = test.execute(context);
+        // step looks up the right function based on the config and invokes it
+        TestExecutionContext context = new DefaultSteppedTestExecutionContext(project, test);
+		boolean ran = test.execute(context);
 		Assert.assertTrue(ran);
 
-	    // step looks up the right function based on the config and invokes it
-		final List<MuseEvent> events = logger.getData().findEvents(new EventTypeMatcher(MessageEventType.TYPE_ID));
+        EventLog log = context.getEventLog();
+		final List<MuseEvent> events =log.findEvents(new EventTypeMatcher(MessageEventType.TYPE_ID));
 		Assert.assertEquals(1, events.size());
 
 		MuseEvent event = events.get(0);

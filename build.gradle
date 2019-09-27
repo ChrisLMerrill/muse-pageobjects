@@ -7,7 +7,7 @@ repositories {
 }
 
 group 'org.musetest'
-version '0.1'
+version '0.2'
 
 dependencies {
     compile 'org.musetest:muse-core:0.14'
