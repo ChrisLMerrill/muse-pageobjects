@@ -1,5 +1,5 @@
 apply plugin: 'java-library'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenLocal()
@@ -10,21 +10,21 @@ group 'org.musetest'
 version '0.2'
 
 dependencies {
-    compile 'org.musetest:muse-core:0.14'
-    compile 'org.musetest:muse-selenium:0.14'
+    compile 'org.musetest:muse-core:0.15'
+    compile 'org.musetest:muse-selenium:0.15'
 
     testImplementation 'junit:junit:4+'
 }
 
 // jar the sources
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
 // jar the javadocs
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
 
@@ -41,6 +41,19 @@ jar {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.9'
+publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+            }
+        }
+        repositories {
+            mavenLocal()
+        }
+    }
+
+wrapper {
+    gradleVersion = '5.6.2'
 }
