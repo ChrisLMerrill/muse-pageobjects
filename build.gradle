@@ -6,25 +6,25 @@ repositories {
     jcenter()
 }
 
-group 'org.musetest'
-version '0.3'
+group 'org.museautomation'
+version '0.4'
 
 dependencies {
-    compile 'org.musetest:muse-core:[0.15,)'
-    compile 'org.musetest:muse-selenium:[0.15,)'
+    compile 'org.museautomation:muse-core:[0.22,)'
+    compile 'org.museautomation:muse-selenium:[0.22,)'
 
     testImplementation 'junit:junit:4+'
 }
 
 // jar the sources
 task sourcesJar(type: Jar) {
-    archiveClassifier = 'sources'
+    archiveClassifier.set('sources')
     from sourceSets.main.allSource
 }
 
 // jar the javadocs
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier = 'javadoc'
+    archiveClassifier.set('javadoc')
     from javadoc.destinationDir
 }
 
@@ -37,7 +37,7 @@ artifacts {
 // declare which packages Muse should scan for extensions
 jar {
     manifest {
-        attributes 'muse-package': 'org.musetest.pageobject,org.musetest.pageobject.steps'
+        attributes 'muse-package': 'org.museautomation.pageobject,org.museautomation.pageobject.steps'
     }
 }
 
