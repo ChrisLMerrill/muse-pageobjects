@@ -10,7 +10,7 @@ import org.museautomation.core.events.*;
 import org.museautomation.core.events.matching.*;
 import org.museautomation.core.project.*;
 import org.museautomation.core.step.*;
-import org.museautomation.core.steptest.*;
+import org.museautomation.core.steptask.*;
 import org.museautomation.core.values.*;
 
 import java.io.*;
@@ -50,16 +50,16 @@ public class PerformActionStepTests
 		action.defaultParameters().addSource("default_param", ValueSourceConfiguration.forValue("default-param-value"));
 
 	    // create a test with a PerformAction step that calls the function
-		SteppedTest test = new SteppedTest();
+		SteppedTask task = new SteppedTask();
 		StepConfiguration test_step = new StepConfiguration(PerformActionStep.TYPE_ID);
 		test_step.addSource(PerformActionStep.PAGE_PARAM, ValueSourceConfiguration.forValue("page1"));
 		test_step.addSource(PerformActionStep.ACTION_PARAM, ValueSourceConfiguration.forValue("action1"));
 		test_step.addSource("exposed-param", ValueSourceConfiguration.forValue("exposed-param-value"));
-		test.setStep(test_step);
+		task.setStep(test_step);
 
         // step looks up the right function based on the config and invokes it
-        TestExecutionContext context = new DefaultSteppedTestExecutionContext(project, test);
-		boolean ran = test.execute(context);
+        TaskExecutionContext context = new DefaultSteppedTaskExecutionContext(project, task);
+		boolean ran = task.execute(context);
 		Assert.assertTrue(ran);
 
         EventLog log = context.getEventLog();
@@ -78,5 +78,3 @@ public class PerformActionStepTests
 	    }
 
 	}
-
-

@@ -8,7 +8,7 @@ import org.museautomation.core.context.*;
 import org.museautomation.core.project.*;
 import org.museautomation.core.resource.*;
 import org.museautomation.core.step.*;
-import org.museautomation.core.steptest.*;
+import org.museautomation.core.steptask.*;
 import org.museautomation.core.values.*;
 
 import java.io.*;
@@ -82,7 +82,7 @@ public class PageConditionValueSourceTests
 		List<StepConfiguration> sub_steps = Collections.singletonList(verify_step);
 		// TODO setup parent step context (OnPage)
 		// TODO setup step context
-		StepsExecutionContext steps_context = new ListOfStepsExecutionContext(new DefaultSteppedTestExecutionContext(_project, new SteppedTest(new StepConfiguration(OnPageStep.TYPE_ID))), sub_steps, false, null);
+		StepsExecutionContext steps_context = new ListOfStepsExecutionContext(new DefaultSteppedTaskExecutionContext(_project, new SteppedTask(new StepConfiguration(OnPageStep.TYPE_ID))), sub_steps, false, null);
 		_context = new SingleStepExecutionContext(steps_context, verify_step, false);
 		}
 

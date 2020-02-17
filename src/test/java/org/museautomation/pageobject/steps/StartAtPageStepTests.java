@@ -9,7 +9,7 @@ import org.museautomation.core.mocks.*;
 import org.museautomation.core.project.*;
 import org.museautomation.core.resource.*;
 import org.museautomation.core.step.*;
-import org.museautomation.core.steptest.*;
+import org.museautomation.core.steptask.*;
 import org.museautomation.core.values.*;
 import org.museautomation.core.variables.*;
 import org.museautomation.selenium.*;
@@ -33,7 +33,7 @@ public class StartAtPageStepTests
 		try
 			{
 			step.execute(context);
-			Assert.assertTrue("should have thrown an exception", false);
+            Assert.fail("should have thrown an exception");
 			}
 		catch (MuseExecutionError e)
 			{
@@ -49,7 +49,7 @@ public class StartAtPageStepTests
 		try
 			{
 			step.execute(new MockStepExecutionContext());
-			Assert.assertTrue("should have thrown an exception", false);
+            Assert.fail("should have thrown an exception");
 			}
 		catch (MuseExecutionError e)
 			{
@@ -68,7 +68,7 @@ public class StartAtPageStepTests
         try
             {
             step.execute(new MockStepExecutionContext());
-            Assert.assertTrue("should have thrown an exception", false);
+            Assert.fail("should have thrown an exception");
             }
         catch (MuseExecutionError e)
             {
@@ -81,7 +81,7 @@ public class StartAtPageStepTests
 		{
 		_page.parameters().addSource(WebPage.URL_PARAM, ValueSourceConfiguration.forValue(URL));
 		MuseMockDriver driver = new MuseMockDriver();
-		DefaultSteppedTestExecutionContext test_context = new DefaultSteppedTestExecutionContext(_project, new SteppedTest(_step_config));
+		DefaultSteppedTaskExecutionContext test_context = new DefaultSteppedTaskExecutionContext(_project, new SteppedTask(_step_config));
 		StepExecutionContext step_context = new SingleStepExecutionContext(test_context, _step_config, false);
 		BrowserStepExecutionContext.putDriver(driver, step_context);
 
