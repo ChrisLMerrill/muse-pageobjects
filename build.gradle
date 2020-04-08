@@ -7,7 +7,7 @@ repositories {
 }
 
 group 'org.museautomation'
-version '0.4'
+version '0.5'
 
 dependencies {
     compile 'org.museautomation:muse-core:[0.22,)'
